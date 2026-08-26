@@ -1,6 +1,6 @@
 # Server Time API
 
-Простой тестовый бэкенд на FastAPI. Возвращает текущее время сервера.
+Простой тестовый бэкенд на FastAPI. Возвращает текущие время и дату сервера.
 
 ## Требования
 
@@ -36,6 +36,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 | --- | --- | --- |
 | `GET` | `/` | Статус сервиса и ссылки |
 | `GET` | `/time` | Текущее время сервера |
+| `GET` | `/date` | Текущая дата сервера |
 | `GET` | `/health` | Проверка работоспособности |
 | `GET` | `/docs` | Интерактивная документация Swagger |
 
@@ -47,5 +48,16 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
   "local": "2026-08-27T00:37:57.564654+03:00",
   "timezone": "Turkey Standard Time",
   "unix_timestamp": 1787780277.564645
+}
+```
+
+### Пример ответа `/date`
+
+```json
+{
+  "utc": "2026-08-26",
+  "local": "2026-08-27",
+  "timezone": "Turkey Standard Time",
+  "weekday": "Thursday"
 }
 ```
