@@ -61,3 +61,25 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
   "weekday": "Thursday"
 }
 ```
+
+## CI/CD (GitHub Actions)
+
+При пуше в `main` workflow `.github/workflows/deploy.yml` делает две джобы:
+
+1. Собирает Docker-образ и публикует его в GitHub Container Registry (`ghcr.io`).
+2. По SSH заходит на сервер, скачивает образ из реестра и запускает контейнер.
+
+### Секреты репозитория
+
+Settings → Secrets and variables → Actions:
+
+| Секрет | Назначение |
+| --- | --- |
+| `SSH_HOST` | IP или домен сервера |
+| `SSH_USER` | Пользователь SSH |
+| `SSH_PRIVATE_KEY` | Приватный ключ для входа |
+| `SSH_PORT` | Порт SSH (обычно `22`) |
+| `GHCR_TOKEN` | PAT с правом `read:packages` для `docker pull` на сервере |
+
+На сервере должны быть установлены Docker. Образ публикуется как `ghcr.io/<owner>/<repo>:<sha>` и `:latest`, контейнер слушает порт `8000`.
+
